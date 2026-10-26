@@ -3,7 +3,8 @@
   "displayName": "Vjudge Toolkit",
   "description": "在 VS Code 里浏览 Vjudge 比赛 / 题目 / 文章，一键提交代码，一键跳转题目与提交页。",
   "version": "0.1.0",
-  "publisher": "vjudge-toolkit",
+  "publisher": "Oxygen-Hydrogen",
+  "icon": "media/icon.png",
   "license": "MIT",
   "repository": {
     "type": "git",

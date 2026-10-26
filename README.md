@@ -6,6 +6,18 @@
 
 ---
 
+## 界面
+
+比赛面板：展开就是题目列表，每题右边直接「提交」或跳「原站」。
+
+![比赛面板](media/screenshot-contest.png)
+
+文章面板：Markdown 正文原生渲染，`[problem:POJ-1031]` 这类引用自动变成可点击的题目链接。
+
+![文章面板](media/screenshot-article.png)
+
+---
+
 ## 功能
 
 | 能力 | 说明 |
@@ -22,7 +34,8 @@
 ## 安装
 
 ```bash
-git clone <this-repo> && cd vjudge-toolkit
+git clone https://github.com/Oxygen-Hydrogen/vjudge-toolkit.git
+cd vjudge-toolkit
 npm install
 npm run compile
 ```
