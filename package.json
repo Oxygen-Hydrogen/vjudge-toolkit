@@ -1,0 +1,295 @@
+{
+  "name": "vjudge-toolkit",
+  "displayName": "Vjudge Toolkit",
+  "description": "在 VS Code 里浏览 Vjudge 比赛 / 题目 / 文章，一键提交代码，一键跳转题目与提交页。",
+  "version": "0.1.0",
+  "publisher": "vjudge-toolkit",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Oxygen-Hydrogen/vjudge-toolkit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Oxygen-Hydrogen/vjudge-toolkit/issues"
+  },
+  "homepage": "https://github.com/Oxygen-Hydrogen/vjudge-toolkit#readme",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "Education"
+  ],
+  "keywords": [
+    "vjudge",
+    "acm",
+    "icpc",
+    "judge",
+    "competitive-programming"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "vjudge",
+          "title": "Vjudge",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "vjudge": [
+        {
+          "id": "vjudge-explorer",
+          "name": "Vjudge 资源"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "vjudge-explorer",
+        "contents": "还没有登录 Vjudge。\n[登录 Vjudge](command:vjudge.login)\n\n登录后可以打开比赛、题目和文章。\n[打开比赛](command:vjudge.openContest)  [打开题目](command:vjudge.openProblem)  [打开文章](command:vjudge.openArticle)"
+      }
+    ],
+    "commands": [
+      {
+        "command": "vjudge.login",
+        "title": "登录",
+        "category": "Vjudge",
+        "icon": "$(account)"
+      },
+      {
+        "command": "vjudge.loginWithCookie",
+        "title": "使用浏览器 Cookie 登录",
+        "category": "Vjudge",
+        "icon": "$(key)"
+      },
+      {
+        "command": "vjudge.logout",
+        "title": "退出登录",
+        "category": "Vjudge",
+        "icon": "$(sign-out)"
+      },
+      {
+        "command": "vjudge.openContest",
+        "title": "打开比赛",
+        "category": "Vjudge",
+        "icon": "$(trophy)"
+      },
+      {
+        "command": "vjudge.openProblem",
+        "title": "打开题目",
+        "category": "Vjudge",
+        "icon": "$(file-code)"
+      },
+      {
+        "command": "vjudge.openArticle",
+        "title": "打开文章",
+        "category": "Vjudge",
+        "icon": "$(book)"
+      },
+      {
+        "command": "vjudge.openLink",
+        "title": "打开链接 / ID（智能识别）",
+        "category": "Vjudge",
+        "icon": "$(link)"
+      },
+      {
+        "command": "vjudge.submit",
+        "title": "提交到当前题目",
+        "category": "Vjudge",
+        "icon": "$(cloud-upload)"
+      },
+      {
+        "command": "vjudge.submitActiveFile",
+        "title": "提交当前文件",
+        "category": "Vjudge",
+        "icon": "$(cloud-upload)"
+      },
+      {
+        "command": "vjudge.copyProblemLink",
+        "title": "复制题目链接",
+        "category": "Vjudge"
+      },
+      {
+        "command": "vjudge.copySubmitLink",
+        "title": "复制提交链接",
+        "category": "Vjudge"
+      },
+      {
+        "command": "vjudge.openInBrowser",
+        "title": "在浏览器打开",
+        "category": "Vjudge",
+        "icon": "$(globe)"
+      },
+      {
+        "command": "vjudge.refresh",
+        "title": "刷新",
+        "category": "Vjudge",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "vjudge.removeItem",
+        "title": "从侧边栏移除",
+        "category": "Vjudge",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "vjudge.clearAll",
+        "title": "清空侧边栏记录",
+        "category": "Vjudge"
+      },
+      {
+        "command": "vjudge.captureCurrent",
+        "title": "从当前文件识别题目并加入侧边栏",
+        "category": "Vjudge",
+        "icon": "$(symbol-link)"
+      },
+      {
+        "command": "vjudge.showRawHtml",
+        "title": "查看抓取到的原始 HTML（调试）",
+        "category": "Vjudge"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "vjudge.removeItem",
+          "when": "false"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "vjudge.login",
+          "when": "view == vjudge-explorer",
+          "group": "navigation@1"
+        },
+        {
+          "command": "vjudge.loginWithCookie",
+          "when": "view == vjudge-explorer",
+          "group": "navigation@1"
+        },
+        {
+          "command": "vjudge.openContest",
+          "when": "view == vjudge-explorer",
+          "group": "navigation@2"
+        },
+        {
+          "command": "vjudge.openProblem",
+          "when": "view == vjudge-explorer",
+          "group": "navigation@3"
+        },
+        {
+          "command": "vjudge.openArticle",
+          "when": "view == vjudge-explorer",
+          "group": "navigation@4"
+        },
+        {
+          "command": "vjudge.refresh",
+          "when": "view == vjudge-explorer",
+          "group": "navigation@5"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "vjudge.submit",
+          "when": "view == vjudge-explorer && viewItem =~ /^vjudge\\.(contestProblem|problem)$/",
+          "group": "1_main@1"
+        },
+        {
+          "command": "vjudge.copyProblemLink",
+          "when": "view == vjudge-explorer && viewItem =~ /^vjudge\\.(contestProblem|problem|article|contest)$/",
+          "group": "2_link@1"
+        },
+        {
+          "command": "vjudge.copySubmitLink",
+          "when": "view == vjudge-explorer && viewItem =~ /^vjudge\\.(contestProblem|problem)$/",
+          "group": "2_link@2"
+        },
+        {
+          "command": "vjudge.openInBrowser",
+          "when": "view == vjudge-explorer && viewItem =~ /^vjudge\\./",
+          "group": "2_link@3"
+        },
+        {
+          "command": "vjudge.removeItem",
+          "when": "view == vjudge-explorer && viewItem =~ /^vjudge\\.(contest|problem|article)$/",
+          "group": "3_edit@1"
+        }
+      ],
+      "editor/title/context": [
+        {
+          "command": "vjudge.submitActiveFile",
+          "when": "editorLangId =~ /^(cpp|c|java|python|javascript|typescript|go|rust|csharp|ruby|pascal)$/",
+          "group": "vjudge@1"
+        },
+        {
+          "command": "vjudge.captureCurrent",
+          "when": "editorLangId =~ /^(cpp|c|java|python|javascript|typescript|go|rust|csharp|ruby|pascal)$/",
+          "group": "vjudge@2"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Vjudge",
+      "properties": {
+        "vjudge.openMode": {
+          "type": "string",
+          "enum": [
+            "webview",
+            "browser",
+            "simpleBrowser"
+          ],
+          "enumDescriptions": [
+            "在 VS Code 内用插件自带的阅读视图渲染（推荐）",
+            "调用系统默认浏览器",
+            "使用 VS Code 内置的 Simple Browser 打开原网页"
+          ],
+          "default": "webview",
+          "description": "打开比赛 / 题目 / 文章的方式。"
+        },
+        "vjudge.requestTimeout": {
+          "type": "number",
+          "default": 20000,
+          "minimum": 3000,
+          "description": "单次网络请求超时时间（毫秒）。"
+        },
+        "vjudge.maxItemsPerGroup": {
+          "type": "number",
+          "default": 30,
+          "minimum": 5,
+          "description": "侧边栏每个分组最多保存多少条记录。"
+        },
+        "vjudge.languageId": {
+          "type": "string",
+          "default": "",
+          "description": "提交时使用的语言 ID（Vjudge 内部编号）。留空则从题目页面自动识别；自动识别失败时可在提交面板里手动填写。"
+        },
+        "vjudge.openSource": {
+          "type": "boolean",
+          "default": true,
+          "description": "提交时公开代码（对应 Vjudge 提交表单里的 open 选项）。"
+        },
+        "vjudge.copyOnFallback": {
+          "type": "boolean",
+          "default": true,
+          "description": "当 Vjudge 要求人机验证、自动提交失败时，自动把代码复制到剪贴板并打开提交页。"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p .",
+    "watch": "tsc -watch -p .",
+    "vscode:prepublish": "npm run compile"
+  },
+  "dependencies": {
+    "node-html-parser": "^6.1.13"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.4.5"
+  }
+}

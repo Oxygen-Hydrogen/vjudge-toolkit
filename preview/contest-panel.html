@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src https: data:; style-src 'unsafe-inline'; font-src https: data:; script-src 'nonce-vjmvp01glk0';">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>预览 · 2026 春季训练赛 #7（示例）</title>
+<style>
+:root {
+  --radius: 8px;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 0 0 48px;
+  font-family: var(--vscode-font-family);
+  font-size: var(--vscode-font-size);
+  color: var(--vscode-foreground);
+  background: var(--vscode-editor-background);
+  line-height: 1.65;
+  word-break: break-word;
+}
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 14px 24px;
+  background: color-mix(in srgb, var(--vscode-editor-background) 88%, transparent);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--vscode-panel-border, rgba(128,128,128,.25));
+}
+.head-text { min-width: 0; }
+h1 {
+  font-size: 1.25em;
+  margin: 0 0 4px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.subtitle {
+  margin: 0 0 6px;
+  color: var(--vscode-descriptionForeground);
+  font-size: .9em;
+}
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  font-size: .78em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  color: var(--vscode-descriptionForeground);
+  background: var(--vscode-badge-background, rgba(128,128,128,.18));
+  border: 1px solid var(--vscode-panel-border, rgba(128,128,128,.25));
+  white-space: nowrap;
+}
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px; flex: 0 0 auto; }
+.btn {
+  font-family: inherit;
+  font-size: .85em;
+  padding: 5px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--vscode-button-secondaryForeground);
+  background: var(--vscode-button-secondaryBackground);
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.btn:hover { background: var(--vscode-button-secondaryHoverBackground); }
+.btn-primary {
+  color: var(--vscode-button-foreground);
+  background: var(--vscode-button-background);
+}
+.btn-primary:hover { background: var(--vscode-button-hoverBackground); }
+.btn[disabled] { opacity: .6; cursor: default; }
+.notice {
+  margin: 12px 24px 0;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  font-size: .88em;
+  color: var(--vscode-inputValidation-warningForeground, var(--vscode-foreground));
+  background: var(--vscode-inputValidation-warningBackground, rgba(255,190,0,.12));
+  border: 1px solid var(--vscode-inputValidation-warningBorder, rgba(255,190,0,.4));
+}
+main {
+  padding: 20px 24px 0;
+  max-width: 900px;
+  margin: 0 auto;
+  font-size: .95em;
+}
+main p { margin: .6em 0; }
+h2, h3, h4, h5, h6 { margin: 1.2em 0 .5em; line-height: 1.35; }
+h2 { font-size: 1.15em; } h3 { font-size: 1.05em; }
+a { color: var(--vscode-textLink-foreground); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; height: auto; border-radius: 4px; }
+code {
+  font-family: var(--vscode-editor-font-family);
+  font-size: .92em;
+  background: var(--vscode-textCodeBlock-background, rgba(128,128,128,.14));
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+pre.vj-code {
+  background: var(--vscode-textCodeBlock-background, rgba(128,128,128,.12));
+  border: 1px solid var(--vscode-panel-border, rgba(128,128,128,.2));
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  overflow: auto;
+}
+pre.vj-code code { background: none; padding: 0; }
+blockquote {
+  margin: .8em 0;
+  padding: 4px 14px;
+  border-left: 3px solid var(--vscode-textLink-foreground);
+  color: var(--vscode-descriptionForeground);
+  background: rgba(128,128,128,.06);
+}
+hr { border: none; border-top: 1px solid var(--vscode-panel-border, rgba(128,128,128,.25)); margin: 1.2em 0; }
+table { border-collapse: collapse; width: 100%; margin: .8em 0; font-size: .92em; }
+th, td { border: 1px solid var(--vscode-panel-border, rgba(128,128,128,.3)); padding: 6px 10px; text-align: left; }
+th { background: rgba(128,128,128,.1); }
+.vj-empty { color: var(--vscode-descriptionForeground); font-style: italic; }
+.vj-prob-ref { font-weight: 600; }
+
+/* 比赛题目列表 */
+.problem-list { list-style: none; padding: 0; margin: 8px 0 0; }
+.problem-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border: 1px solid var(--vscode-panel-border, rgba(128,128,128,.22));
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+  background: rgba(128,128,128,.05);
+}
+.problem-list li:hover { border-color: var(--vscode-focusBorder); }
+.badge {
+  flex: 0 0 auto;
+  min-width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: .82em;
+  font-weight: 600;
+  color: var(--vscode-badge-foreground);
+  background: var(--vscode-badge-background);
+}
+.prob-main { min-width: 0; flex: 1 1 auto; }
+.prob-title { font-weight: 500; }
+.prob-key {
+  display: block;
+  font-size: .78em;
+  color: var(--vscode-descriptionForeground);
+  font-family: var(--vscode-editor-font-family);
+}
+.prob-actions { display: flex; gap: 6px; flex: 0 0 auto; }
+.prob-actions .btn { padding: 3px 9px; font-size: .8em; }
+
+/* 题目页 */
+.statement { line-height: 1.75; }
+.statement .ptx { margin: .5em 0; }
+.section-title {
+  margin: 22px 0 8px;
+  font-size: 1em;
+  font-weight: 600;
+  color: var(--vscode-descriptionForeground);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.statement-note {
+  margin-top: 20px;
+  font-size: .82em;
+  color: var(--vscode-descriptionForeground);
+}
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  max-width: 80%;
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-size: .86em;
+  color: var(--vscode-notifications-foreground, #fff);
+  background: var(--vscode-notifications-background, #333);
+  box-shadow: 0 4px 18px rgba(0,0,0,.28);
+  z-index: 20;
+}
+.toast-ok { border-left: 3px solid var(--vscode-testing-iconPassed, #3ba55d); }
+.toast-err { border-left: 3px solid var(--vscode-testing-iconFailed, #e5534b); }
+</style>
+<style>
+:root {
+  --vscode-font-family: -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
+  --vscode-font-size: 13px;
+  --vscode-editor-font-family: Consolas, "Courier New", monospace;
+  --vscode-foreground: #1f2328;
+  --vscode-editor-background: #ffffff;
+  --vscode-descriptionForeground: #616a75;
+  --vscode-textLink-foreground: #0969da;
+  --vscode-panel-border: #e2e5e9;
+  --vscode-button-background: #0969da;
+  --vscode-button-foreground: #ffffff;
+  --vscode-button-hoverBackground: #0a5cc2;
+  --vscode-button-secondaryBackground: #eef1f4;
+  --vscode-button-secondaryForeground: #1f2328;
+  --vscode-button-secondaryHoverBackground: #e2e6ea;
+  --vscode-badge-background: #e8ecf0;
+  --vscode-badge-foreground: #41505e;
+  --vscode-textCodeBlock-background: #f4f6f8;
+  --vscode-focusBorder: #0969da;
+  --vscode-inputValidation-warningBackground: #fff8e1;
+  --vscode-inputValidation-warningBorder: #f0c000;
+  --vscode-notifications-background: #2f363d;
+  --vscode-notifications-foreground: #ffffff;
+}
+body { background: #fff; }
+</style><script>window.acquireVsCodeApi = function () { return { postMessage: function (m) { console.log('[preview]', m); } }; };</script></head>
+<body>
+<header class="topbar">
+  <div class="head-text">
+    <h1>2026 春季训练赛 #7（示例）</h1>
+    <p class="subtitle">Contest 500000</p>
+    <div class="chips"><span class="chip">2026-10-26 18:00 ~ 2026-10-26 23:00</span><span class="chip">5 题</span><span class="chip">进行中</span></div>
+  </div>
+  <div class="toolbar"><button class="btn" data-action="openExternal" data-url="https://vjudge.net/contest/500000">在浏览器打开</button><button class="btn" data-action="copyLink" data-url="https://vjudge.net/contest/500000">复制链接</button></div>
+</header>
+<div class="notice">这是界面预览，题目为示例数据。真实面板里的题目列表来自 Vjudge 页面（需要登录）。</div>
+<main id="content"><ul class="problem-list"><li>
+        <span class="badge">A</span>
+        <span class="prob-main">
+          <a class="prob-title" data-action="openProblem" data-contest="500000" data-num="A" data-key="CodeForces-1A">Theatre Square</a>
+          <span class="prob-key">CodeForces-1A</span>
+        </span>
+        <span class="prob-actions">
+          <button class="btn btn-primary" data-action="submit" data-contest="500000" data-num="A" data-key="CodeForces-1A">提交</button>
+          <button class="btn" data-action="openExternal" data-url="https://vjudge.net/problem/CodeForces-1A">原站</button>
+        </span>
+      </li>
+<li>
+        <span class="badge">B</span>
+        <span class="prob-main">
+          <a class="prob-title" data-action="openProblem" data-contest="500000" data-num="B" data-key="POJ-1002">487-3279</a>
+          <span class="prob-key">POJ-1002</span>
+        </span>
+        <span class="prob-actions">
+          <button class="btn btn-primary" data-action="submit" data-contest="500000" data-num="B" data-key="POJ-1002">提交</button>
+          <button class="btn" data-action="openExternal" data-url="https://vjudge.net/problem/POJ-1002">原站</button>
+        </span>
+      </li>
+<li>
+        <span class="badge">C</span>
+        <span class="prob-main">
+          <a class="prob-title" data-action="openProblem" data-contest="500000" data-num="C" data-key="HDU-1003">Max Sum</a>
+          <span class="prob-key">HDU-1003</span>
+        </span>
+        <span class="prob-actions">
+          <button class="btn btn-primary" data-action="submit" data-contest="500000" data-num="C" data-key="HDU-1003">提交</button>
+          <button class="btn" data-action="openExternal" data-url="https://vjudge.net/problem/HDU-1003">原站</button>
+        </span>
+      </li>
+<li>
+        <span class="badge">D</span>
+        <span class="prob-main">
+          <a class="prob-title" data-action="openProblem" data-contest="500000" data-num="D" data-key="LightOJ-1008">Fibsieve`s Fantabulous Birthday</a>
+          <span class="prob-key">LightOJ-1008</span>
+        </span>
+        <span class="prob-actions">
+          <button class="btn btn-primary" data-action="submit" data-contest="500000" data-num="D" data-key="LightOJ-1008">提交</button>
+          <button class="btn" data-action="openExternal" data-url="https://vjudge.net/problem/LightOJ-1008">原站</button>
+        </span>
+      </li>
+<li>
+        <span class="badge">E</span>
+        <span class="prob-main">
+          <a class="prob-title" data-action="openProblem" data-contest="500000" data-num="E" data-key="AtCoder-abc300_f">More Holidays</a>
+          <span class="prob-key">AtCoder-abc300_f</span>
+        </span>
+        <span class="prob-actions">
+          <button class="btn btn-primary" data-action="submit" data-contest="500000" data-num="E" data-key="AtCoder-abc300_f">提交</button>
+          <button class="btn" data-action="openExternal" data-url="https://vjudge.net/problem/AtCoder-abc300_f">原站</button>
+        </span>
+      </li></ul></main>
+<div id="toast" class="toast" hidden></div>
+<script nonce="vjmvp01glk0">
+(function () {
+  const vscode = acquireVsCodeApi();
+  const toast = document.getElementById('toast');
+  let toastTimer = null;
+
+  function showToast(text, ok) {
+    if (!toast) return;
+    toast.textContent = text;
+    toast.className = 'toast ' + (ok ? 'toast-ok' : 'toast-err');
+    toast.hidden = false;
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { toast.hidden = true; }, 5000);
+  }
+
+  document.addEventListener('click', function (event) {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+
+    const actionEl = target.closest('[data-action]');
+    if (actionEl) {
+      event.preventDefault();
+      const action = actionEl.getAttribute('data-action');
+      const payload = { type: 'action', action: action };
+      for (const attr of Array.from(actionEl.attributes)) {
+        if (attr.name.startsWith('data-') && attr.name !== 'data-action') {
+          payload[attr.name.slice(5)] = attr.value;
+        }
+      }
+      if (action === 'submit') {
+        actionEl.setAttribute('disabled', 'disabled');
+        actionEl.textContent = '提交中…';
+      }
+      vscode.postMessage(payload);
+      return;
+    }
+
+    const anchor = target.closest('a[href]');
+    if (anchor) {
+      const href = anchor.getAttribute('href');
+      if (href && !href.startsWith('#')) {
+        event.preventDefault();
+        vscode.postMessage({ type: 'openLink', url: href });
+      }
+    }
+  });
+
+  window.addEventListener('message', function (event) {
+    const message = event.data;
+    if (!message) return;
+    if (message.type === 'toast') {
+      showToast(message.text, message.ok !== false);
+    }
+    if (message.type === 'resetButtons') {
+      document.querySelectorAll('button[data-action="submit"]').forEach(function (btn) {
+        btn.removeAttribute('disabled');
+        btn.textContent = '提交';
+      });
+    }
+  });
+})();
+</script>
+</body>
+</html>
